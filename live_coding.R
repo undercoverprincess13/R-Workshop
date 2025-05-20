@@ -1,3 +1,3 @@
 # R Live Coding 
 
-# First steps abc
+# First steps
