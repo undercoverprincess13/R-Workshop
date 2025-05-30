@@ -1,0 +1,6 @@
+---
+title: "Live Coding Vorbereitung"
+output: html_document
+---
+
+![Alternativtext](bildname.png){width=50%}
