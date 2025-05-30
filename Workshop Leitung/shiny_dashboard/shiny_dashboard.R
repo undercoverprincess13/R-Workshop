@@ -6,7 +6,8 @@ library(shiny)
 library(bslib)
 library(readxl)
 library(ggplot2)
-library(dplyr) 
+library(dplyr)
+library(ggcorrplot) # Für Korrelationsmatrix
 
 # ----------------
 # SERVER
@@ -50,6 +51,52 @@ server <- function(input, output) {
       ) +
       theme_minimal()
   })
+  
+  # -------------------------
+  # Korrelationsmatrix
+  # ------------------------- 
+  
+  output$cor_matrix <- renderPlot({
+    df <- gefilterte_daten()
+    
+    # Umkodierung Geschlecht und Prüfungsphase in numerische Werte
+    df$Geschlecht <- ifelse(df$Geschlecht == "Frau", 1, 0)
+    df$Pruefungsphase <- ifelse(df$Pruefungsphase == "Ja", 1, 0)
+    
+    # Nur numerische Spalten
+    numeric_df <- df %>% select(where(is.numeric))
+    
+    # Korrelationsmatrix berechnen
+    cor_matrix <- cor(numeric_df, use = "complete.obs")
+    
+    # Darstellung mit ggcorrplot
+    ggcorrplot(cor_matrix,
+               method = "square",
+               type = "upper",
+               lab = TRUE,
+               lab_size = 3,
+               colors = c("red", "white", "blue"),
+               title = "Korrelationsmatrix Kaffekonsum @ HHN",
+               ggtheme = theme_minimal())
+  })
+  
+  # -------------------------
+  # Regression
+  # ------------------------- 
+  
+  output$regression_plot <- renderPlot({
+    df <- gefilterte_daten()
+    
+    ggplot(df, aes(x = Lernzeit_pro_Tag_in_Stunden, y = Kaffeetassen_pro_Tag)) +
+      geom_point(color = "#1f77b4") +
+      geom_smooth(method = "lm", se = TRUE, color = "darkred") +
+      labs(
+        title = "Regression: Lernzeit vs. Kaffeekonsum",
+        x = "Lernzeit (Stunden pro Tag)",
+        y = "Tassen Kaffee pro Tag"
+      ) +
+      theme_minimal()
+  })
 
 }
 
@@ -57,6 +104,7 @@ server <- function(input, output) {
 # UI
 # ----------------
 
+# Sidebar mit Filteroptionen
 ui <- page_sidebar(
   title = "R Workshop - Coffee @ HHN",
   sidebar = sidebar("Filter",
@@ -77,6 +125,8 @@ ui <- page_sidebar(
   
   
 # Cards für Visualisierungen
+div(
+  style = "height: 100vh; overflow-y: auto; padding: 1rem; box-sizing: border-box;",
   card(
     card_header("Deskiptive Statistik"),
     p("Dieses Histogramm zeigt, wie viele Tassen Kaffee pro Tag konsumiert werden."),
@@ -84,18 +134,28 @@ ui <- page_sidebar(
     
     
   ),
+layout_columns(
+  col_widths = c(6, 6),
+  
   card(
     card_header("Korrelation Kaffeekonsum während und außerhalb der Prüfungsphase"),
-    # Code
-    
-    
+    p("Diese Korrelationsmatrix zeigt Zusammenhänge zwischen Alter, Kaffee- und Lernverhalten."),
+    plotOutput("cor_matrix", height = "400px")
   ),
+  
+  card(
+    card_header("Regression"),
+    p("Zusammenhang zwischen Lernzeit und Kaffeekonsum"),
+    plotOutput("regression_plot", height = "400px")
+  )
+),
   card(
     card_header("Trinken Frauen mehr Kaffee als Männer bezogen auf Lernzeit (Hypothesentest / T-Test)"),
     # Code
     
     
   )
+)
 )
 
 # ----------------
