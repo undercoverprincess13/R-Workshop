@@ -1,0 +1,164 @@
+
+---
+title: "R Cheatsheet: Grundlagen mit Erklärungen"
+output: html_document
+---
+
+# ✍ R-Notation – Grundlagen
+
+## 🔹 Zuweisung von Variablen
+
+```r
+x <- 5
+y = 10
+```
+Weist Werte an Variablen zu. `<-` ist in R die bevorzugte Schreibweise (Alternative: `=`).
+
+## 🔹 Vektoren erstellen
+
+```r
+zahlen <- c(1, 2, 3, 4)
+namen <- c("Anna", "Ben", "Eva")
+```
+`c()` steht für „combine“ und erstellt Vektoren – geordnete Sammlungen gleichartiger Elemente (Zahlen, Zeichenketten etc.).
+
+## 🔹 Sequenzen und Wiederholungen
+
+```r
+1:10
+seq(0, 1, by = 0.1)
+rep(1:3, times = 2)
+```
+`1:10` erzeugt eine einfache Folge. `seq()` ist flexibler. `rep()` wiederholt Elemente.
+
+## 🔹 Zugriff auf Vektor-Elemente
+
+```r
+zahlen[1]
+zahlen[2:4]
+```
+Zugriff über Index in eckigen Klammern – beginnt in R bei 1 (nicht bei 0 wie in Python).
+
+## 🔹 Grundrechenarten und logische Operatoren
+
+```r
+a + b; a - b; a * b; a / b; a ^ 2
+x == y; x != y; x > y; x < y; x & y; x | y; !x
+```
+Grundoperationen und logische Vergleiche – wichtig z. B. für Filterungen und Bedingungen.
+
+## 🔹 Funktionen auf Vektoren anwenden
+
+```r
+mean(zahlen)
+sum(zahlen)
+length(zahlen)
+```
+R bietet viele eingebaute Funktionen zur Analyse von Vektoren.
+
+# 🎯 Grundlagen aus dem Live Coding
+
+## 📦 Packages installieren & laden
+
+```r
+install.packages("readxl")
+install.packages("tidyverse")
+library(readxl)
+library(tidyverse)
+library(dplyr)
+```
+`install.packages()` installiert ein Paket dauerhaft (einmalig). `library()` lädt es in die aktuelle Sitzung (jedes Mal nötig).
+
+## 📂 Excel-Datei importieren
+
+```r
+Scooby <- read_excel("Pfad/zur/Datei.xlsx")
+view(Scooby)
+```
+- `read_excel()` lädt eine Excel-Datei als DataFrame.
+- `"Pfad/zur/Datei.xlsx"` muss durch den tatsächlichen Dateipfad ersetzt werden (Tipp: Datei ins Files-Fenster ziehen).
+- `Scooby` ist der selbstgewählte Name für den Datensatz.
+- `view(Scooby)` öffnet den Datensatz im Tabelleneditor von RStudio.
+
+## 🔎 Erste Analysen
+
+```r
+mean(Scooby$run_time)
+mean(Scooby$imdb, na.rm = TRUE)
+```
+- Mit `$` greifst du auf eine Spalte im DataFrame zu.
+- `mean()` berechnet den Mittelwert.
+- `na.rm = TRUE` ignoriert fehlende Werte (`NA`), die sonst Fehler verursachen können.
+
+## ❓️Hilfe & Beispieldaten
+
+```r
+data()
+?mpg
+?mean
+```
+- `data()` zeigt eingebaute Beispiel-Datensätze.
+- `?funktion` öffnet die Hilfe zur Funktion – sehr nützlich bei Unsicherheiten.
+
+## 👀 Übersicht mit glimpse()
+
+```r
+glimpse(mpg)
+```
+`glimpse()` zeigt Spaltennamen, Typen und Vorschauwerte auf einen Blick. Kompakter und übersichtlicher als `str()`.
+
+## 🔎 Filtern mit filter()
+
+```r
+mpg_efficient <- filter(mpg, cty >= 20)
+mpg_ford <- filter(mpg, manufacturer == "ford")
+```
+- `filter()` wählt nur Zeilen, die eine Bedingung erfüllen.
+- `==` vergleicht Werte; `=` würde hier nicht funktionieren.
+- Ergebnis wird in neuen Objekten gespeichert.
+
+## ➕ Neue Spalten mit mutate()
+
+```r
+mpg_metric <- mutate(mpg, cty_metric = 0.425144 * cty)
+```
+- `mutate()` erzeugt neue Spalten oder verändert bestehende.
+- Hier: Umrechnung von Meilen pro Gallone in Liter pro 100km.
+
+## 🔗 Pipes verwenden
+
+```r
+mpg_metric <- mpg %>% mutate(cty_metric = 0.425144 * cty)
+```
+- `%>%` ist die Pipe: leitet das Ergebnis von links an die Funktion rechts weiter.
+- Macht Code lesbarer („nimm mpg und dann…“).
+
+## 🧮 Gruppieren & Zusammenfassen
+
+```r
+mpg %>%
+  group_by(class) %>%
+  summarise(mean_cty = mean(cty), median_cty = median(cty))
+```
+- `group_by()` gruppiert Daten nach Kategorien.
+- `summarise()` berechnet Kennzahlen je Gruppe (z. B. Durchschnitt).
+
+## 📊 Visualisierung mit ggplot2
+
+```r
+ggplot(mpg, aes(x = cty)) + geom_histogram()
+
+ggplot(mpg, aes(x = cty, y = hwy)) + geom_point()
+
+ggplot(mpg, aes(x = cty, y = hwy, color = class)) +
+  geom_point() +
+  scale_color_brewer(palette = "Dark2")
+```
+- `ggplot2` ist R’s Hauptpaket für Visualisierung.
+- `aes()` definiert Achsen und Farben.
+- `geom_*()` bestimmt die Darstellungsform (z. B. Punkte, Histogramm).
+- `+` verknüpft Ebenen im Plot.
+
+# 📝 R Markdown
+
+R Markdown vereint Text, Code und Ausgaben in einem dynamischen Dokument. Du kannst es als HTML, PDF oder Word-Bericht rendern. Ideal für dokumentierte Analysen und Präsentationen.
