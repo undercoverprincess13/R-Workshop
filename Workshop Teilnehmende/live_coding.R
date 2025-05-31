@@ -1,43 +1,59 @@
 library(tidyverse)
-# Dataset auswählen welche in den Bibs included sind 
+
+# Datensätze anzeigen und auswählen (Datensätze die in den Bibs included sind)
 
 
-# Dataset anschauen
+# Ausgewählten Datensatz anschauen
 
 
-# Öffnet beschreibung im Help Tab über das Dataset
+# Beschreibung des Datensatzes im Help Tab öffnen/sich anzeigen lassen
 
 
-# Überblick über Funktionen/methoden
+# Überblick über Funktionen bzw. Methoden
 
 
-# Überblick über Dataset (Cols & Rows)
+# Überblick über den Datensatz (Spalten & Zeilen) anzeigen lassen
 
 
-# Filterung des Datasets - cty(city miles per gallon) >= 20. Wird in neues ds
-# gespeichert und ausgegeben mit view()
+# Datensatz filtern Bsp. cty(city miles per gallon) >= 20
+# Das wird dann anschließend in einen neuen Datensatz/df gespeichert
 
 
-# Um values zu filtern muss == statt = angegeben werden.
+# Neuen Datensatz/df ausgeben
 
 
-# Mutate adds or changes variable in dataset. Hier wurden gallons/mile in km/l
-# umgerechnet und als neue spalte hinzugefügt
+# Filterung von values ("==" statt "=")
 
 
-# Tool um Argument zur nächsten funktion hinzuzufügen %>% (cmd/ctrl + shift + m)
+# "Mutate" fügt Variablen zu einem Datensatz hinzu oder ändert bestehende. 
+# Bsp. gallons/mile in km/l + anschließende Speicherung als neue Spalte
 
 
-# Data viz with ggplot2 (grammar of graphics)
-# aes (aesthentics) the way of saying welche var sollen wie kommunizieren
-# geom_ + Type of plot -> ist die syntax zum plotten
+# "Pipe-Operator" um Ausdrücke lesbarer und übersichtlicher zu machen, 
+# indem man die Ausgabe einer Funktion direkt als Eingabe an die nächste 
+# Funktion weitergibt. %>% (cmd/ctrl + shift + m)
 
 
-# Plots können gelayert werden
+# Datenvisualisierung mit ggplot2 (grammar of graphics)
+# aes (aesthentics) - welche var sollen wie kommunizieren
+# geom_ + Type of plot -> Syntax zum plotten
+
+
+# Plots layern
 
 
 # Scatter plot
 
-# geom_smooth(method = "lm")  linear relationship durch einfaches hinzufügen einer Regression line
+# geom_smooth(method = "lm")  linear relationship durch einfaches hinzufügen 
+# einer Regressionsline
 
-# Teilen mit anderen Leute (Kollegen, Stakeholder...) -> Markdown dokument in files erstellen
+
+# Historgram erstellen
+
+
+# Mittelwert und Median als Boxplot
+
+
+# Teilen mit anderen Leute (Kollegen, Stakeholder...) -> Markdown-Dokument 
+# in files erstellen
+

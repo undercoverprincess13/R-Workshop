@@ -173,7 +173,7 @@ ui <- page_sidebar(
   
 # Cards für Visualisierungen
 div(
-  style = "height: 100vh; overflow-y: auto; padding: 1rem; box-sizing: border-box;",
+  style = "padding: 1rem; box-sizing: border-box;",
   layout_columns(
     col_widths = c(12),
     card(
