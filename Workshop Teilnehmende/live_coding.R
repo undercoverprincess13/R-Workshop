@@ -56,16 +56,20 @@ library(tidyverse)
 
 # Datenvisualisierung mit ggplot2 (grammar of graphics)
   # Der Aufbau eines Plots in `ggplot2`
-  # - `aes()` = aesthetics: Definiert, welche Variablen wie    dargestellt werden sollen.
-  # - `geom_` = Geometrie des Plots (z.B. Punkte, Balken, Linien).
-  # - Plots können **gelayert** werden, d.h. mehrere Geome übereinandergelegt.
+  # - Daten (data) der zugrundeliegende Datensatz (mpg)
+  # - `aes()` = aesthetics: Definiert, welche Variablen wie dargestellt werden sollen
+  # - `geom_` = Geometrie des Plots, also Welche Art von Diagramm (z.B. Punkte, Balken, Linien)
+  # - Plots können gelayert werden, d.h. mehrere Plots übereinandergelegt
 
 # Datensatz wählen und ggplot starten 
 
 # Histogramm
+# Wie viele Autos kommen in der Stadt mit einer Galleone wie weit? 
+
 
 
 # Anderer Diagramm Typ: Frequenzpolynom statt Histogramm 
+
 
 
 # Plots layern
@@ -74,15 +78,12 @@ library(tidyverse)
 # Scatterplot
 
 
-# Scatterplot nach Fahrzeugklasse einfärben
 
+# Scatterplot nach Fahrzeugklasse einfärben
 
 
 # Farbe aus Farbpalette wählen  
 
-
-
-# Mittelwert und Median als Boxplot
 
 
 # Gerichteter Zweistichproben-t-Test
@@ -98,8 +99,7 @@ library(tidyverse)
   # Hypothesen:
     # - H₀ (Nullhypothese): Kompaktwagen sind nicht sparsamer als SUVs → `compact ≤ suv`
     # - H₁ (Alternativhypothese): Kompaktwagen sind sparsamer → `compact > suv`
-
-
+    
 
 # Teilen mit anderen Personen (Kollegen, Stakeholder...) -> Markdown-Dokument in files erstellen
 

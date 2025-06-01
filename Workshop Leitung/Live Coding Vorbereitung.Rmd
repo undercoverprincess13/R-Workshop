@@ -10,10 +10,14 @@ library(tidyverse)
 
 # Einführung
 
-In dieser Session lernen wir die Grundlagen von `ggplot2` einer Kernelemente von tidyverse() library , dem modernen Grafiksystem in R. Es basiert auf dem sogenannten "Grammar of Graphics"-Ansatz, bei dem man einen Plot als Kombination aus **Daten**, **Ästhetiken** und **Geometrien** versteht.
+In dieser Session lernen wir die Grundlagen von `ggplot2` welches ein Kernelemente der tidyverse() library ist. Es basiert auf dem sogenannten "Grammar of Graphics"-Ansatz, bei dem man einen Plot als Kombination aus **Daten**, **Ästhetiken** und **Geometrien** versteht.
+
 # Der Aufbau eines Plots in `ggplot2`
+- Daten (data) der zugrundeliegende Datensatz 
 - `aes()` = aesthetics: Definiert, welche Variablen wie dargestellt werden sollen.
-- `geom_` = Geometrie des Plots (z.B. Punkte, Balken, Linien).
+- `geom_` = Geometrie des Plots, also Welche Art von Diagramm (z.B. Punkte, Balken, Linien).
+- Weitere optionale Komponenten
+-bspw. `labs()` für Achsenbeschriftungen
 - Plots können **gelayert** werden, d.h. mehrere Geome übereinandergelegt.
 
 ---
@@ -21,8 +25,8 @@ In dieser Session lernen wir die Grundlagen von `ggplot2` einer Kernelemente von
 
 
 ## Schritt 1: Datensatz wählen und ggplot starten
-- man hat im Gegensatz zu anderen Visualisierungen hier erstmal nur die ggplot Funktion egal welche Vosualisierung Lininendiagramm etc. wir machen
-- es wird geschaut welche Variablen hat man auf der x achse und y achse, welche farben wollen wir etc erst dann geben wir an welches Art von Diagramm wir nehmen wollen 
+- man hat im Gegensatz zu anderen Visualisierungen hier erstmal nur die ggplot Funktion egal welche Art von diagramm (Histogramm, Liniendiagramm...) wir machen
+- es wird geschaut welche Variablen hat man auf der x achse und y achse,, welche farben wollen wir etc, erst dann geben wir an welches Art von Diagramm wir nehmen wollen 
 
 Wir arbeiten mit dem `mpg`-Datensatz, der in `ggplot2` enthalten ist.
 
@@ -86,21 +90,48 @@ ggplot(mpg, aes(x = cty, y = hwy)) +
 ```
 
 Wenn wir das sehen denkt man direkt an eine lineare Regression 
-die Regressionslinie können wir einfach mit `geom_smooth(method = lm)`
+die Regressionslinie können wir einfach mit `geom_smooth(method = lm)` -> linear model 
+Ist dafür da Trennlinien zu zeichnen
 ```{r}
 ggplot(mpg, aes(x = cty, y = hwy)) +
   geom_point() +
   geom_smooth(method = "lm")
 ```
+- Es zeigt den Bereich, in dem die wahre Regressionslinie mit einer bestimmten - Wahrscheinlichkeit liegt – typischerweise 95%.
+- Es drückt die Unsicherheit der Schätzung aus.
+- Je breiter das Band, desto unsicherer ist die Schätzung an dieser Stelle.
+- Je schmaler, desto präziser ist der Zusammenhang an dieser Stelle geschätzt
+--> Das graue Band zeigt, wo die wahre Regressionslinie liegen könnte, wenn wir die Analyse unendlich oft mit ähnlichen Daten wiederholen würden.
+
+Wir können es auch mit `se= FALSE` (Standard Error) ausschalten 
+```{r}
+ggplot(mpg, aes(x = cty, y = hwy)) +
+  geom_point() +
+  geom_smooth(method = "lm", se=FALSE)
+```
 
 # Scatterplot nach Fahrzeugklasse einfärben
 - wir haben mit Lais ja schon die Fahrzeugklassen gruppiert (`mpg` Dataset zeigen und `class` Spalte zeigen)
-- wir können jetzt die verschiedenen classen mit Farben kodieren das können wir wie die Infos über X und Y Achse unter `aes`thetic machen weil dort alle Infos über die visualisierung angegeben werden. Weil das nichts mit den Achsen zu tun hat fügen wir eine extra aesthetic hinzu `color` und wir wollen die `class` einfärben 
+- wir können jetzt die verschiedenen classen mit Farben kodieren das können wir wie die Infos über X und Y Achse unter `aes`thetic machen weil dort alle Infos über die visualisierung angegeben werden. Weil das nichts mit den Achsen zu tun hat fügen wir eine extra aesthetic hinzu `color` und wir wollen die `class` einfärben
+
+```{r}
+ggplot(mpg, aes(x = cty, y = hwy, color = class)) +
+  geom_point() +
+  geom_smooth(method = "lm", se=FALSE)
+```
+
+
+```{r}
+ggplot(mpg, aes(x = cty, y = hwy, color = class)) +
+  geom_point() +
+  geom_smooth(method = "lm", aes(group = 1), color = "black")
+```
 
 ```{r}
 ggplot(mpg, aes(x = cty, y = hwy, color = class)) +
   geom_point()
 ```
+
 
 ## Farben verbessern (z.B. farbenblindfreundlich)
 - Man kannt die Farben manuell bestimmen oder über Farbpalleten einer Funktion `scale_color_brewer`
@@ -163,12 +194,15 @@ t.test(
   - Da das Intervall ausschließlich positiv ist (kein 0 enthalten), bestätigt es den signifikanten Unterschied.
 -  5. Mittelwerte:
   - Gruppe	Mittelwert (cty)
-  - Kompaktwagen	20.13 mpg
-  - SUVs	13.50 mpg
-  - Kompaktwagen fahren im Schnitt 6.63 Meilen weiter pro Gallone.
+  - Kompaktwagen	20.13 mpg (deskriptive Werte )
+  - SUVs	13.50 mpg (deskriptiv)
+  --> Deskriptiver Unterschied der Mittelwerte wäre hier 20.13 - 13.50 = 6.63  (das ist der Unterschied in der Stichprobe)
+  --> Kompaktwagen fahren im Schnitt 6.63 Meilen weiter pro Gallone.
+  Durch t-Test und Konfidenzintervall können wir sagen:
+  🟢 Interpretation: Kompaktwagen verbrauchen mindestens 5.66 mpg (Unteregrenze vom Konfidenzintervall) weniger Sprit als SUVs.
   - Das ist ein sehr relevanter praktischer Unterschied, nicht nur statistisch signifikant.
 
-🟢 Interpretation: Kompaktwagen verbrauchen mindestens 5.66 mpg weniger Sprit als SUVs.
+
 
 
 # Ergebnis dokumentieren mit R Markdown
