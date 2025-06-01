@@ -17,7 +17,7 @@ library(tidyverse)
 data()
 
 # Dataset anschauen
-view(mpg)
+View(mpg)
 
 # Öffnet beschreibung im Help Tab über das Dataset
 ?mpg
@@ -32,13 +32,12 @@ glimpse(mpg)
 # gespeichert und ausgegeben mit view()
 filter(mpg, cty >= 20)
 mpg_efficient <- filter(mpg, cty >= 20)
-view(mpg_efficient)
+View(mpg_efficient)
 
 
 # Um values zu filtern muss == statt = angegeben werden.
 mpg_ford <- filter(mpg, manufacturer == "ford")
-view(mpg_ford)
-
+View(mpg_ford)
 
 # Mutate adds or changes variable in dataset. Hier wurden gallons/mile in km/l
 # umgerechnet und als neue spalte hinzugefügt
