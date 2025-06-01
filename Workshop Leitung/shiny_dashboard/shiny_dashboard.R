@@ -139,7 +139,9 @@ server <- function(input, output) {
   # --------------------------------------------------------------------------
   output$t_test_ergebnis <- renderPrint({
     df <- gefilterte_daten()
-    t_test <- t.test(Kaffeetassen_pro_Tag ~ Geschlecht, data = df)
+    t_test <- t.test(Kaffeetassen_pro_Tag ~ Geschlecht, data = df, alternative = "greater")
+    # R vergleicht Mittelwerte alphabetisch (Frau, Mann) danach geht es von rechts nach linkts in Bezus auf Y~X-> X = Mann > Y = Frau 
+    # alternative = "greater" bedeutet: „Zweite Gruppe > Erste Gruppe“
     t_test
     
     
