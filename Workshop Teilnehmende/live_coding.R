@@ -1,4 +1,12 @@
+# Alle Bibliotheken installieren 
+library(shiny)
+library(bslib)
+library(readxl)
+library(ggplot2)
+library(dplyr)
+library(ggcorrplot)
 library(tidyverse)
+
 # Code ausführen mit Str+ Enter / Cmd Enter -> Führt die aktuelle Zeile oder den markierten Code in der Console aus
 
 # Datensätze anzeigen und auswählen (Datensätze die in den Bibliotheken enthalten sind)

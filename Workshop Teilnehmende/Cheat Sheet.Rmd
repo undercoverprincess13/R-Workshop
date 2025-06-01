@@ -53,7 +53,6 @@ zahlen = Daten in diesem Fall der Vektor könnte auch eine Spalte eines Datenfra
 # 🎯 Grundlagen aus dem Live Coding
 
 ## 📦 Packages installieren & laden
-
 ```r
 install.packages("readxl")
 install.packages("tidyverse")
@@ -77,10 +76,15 @@ view(Scooby)
 ## 🔎 Erste Analysen | Auf Spalte im Dataframe zugreifen
 
 ```r
-mean(Scooby$run_time)
-mean(Scooby$imdb, na.rm = TRUE)
+variablen_name <- Scooby$Spaltenname
+
 ```
-- Mit `$` greifst du auf eine Spalte im DataFrame zu.
+- Mit `$` greifst du auf eine Spalte im DataFrame (in diesem Fall Scooby benannt)  zu.
+
+## 🧮 Mittelwert, Median und Standardabweichung berechnen 
+```r
+mean(Scooby$Spaltenname, na.rm = TRUE)
+```
 - `mean()` berechnet den Mittelwert.
 - `na.rm = TRUE` ignoriert fehlende Werte (`NA`), die sonst Fehler verursachen können.
 

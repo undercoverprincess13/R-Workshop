@@ -1,5 +1,12 @@
 # Library hinzufügen und ausführen
+library(shiny)
+library(bslib)
+library(readxl)
+library(ggplot2)
+library(dplyr)
+library(ggcorrplot)
 library(tidyverse)
+
 # Code ausführen mit Str+ Enter / Cmd Enter -> Führt die aktuelle Zeile oder den markierten Code in der Console aus
 
 # Datensätze anzeigen und auswählen (Datensätze die in den Bibliotheken enthalten sind)
@@ -79,9 +86,7 @@ t.test(
 )
 # cty(abhängige Variable, was gemessen wird -> Stadtverbrauch) ~ class(Gruppierungsvariable: 2 Gruppen "suv" und "compact")
 # -> R vergleicht den Durchschnitt von cty zwischen beiden Klassen 
-
 # data ist das dataframe was wir R mitgeben für den t-test, in dem Fall geben wir das gesamte mpg Dataframe mit aber gefiltert auf alle Zeilen die in Classe SUV oder COMPACT sind 
-
 # alternative = "less" Compact, SUV (Alphabet) Das rechte wie als Vergleich genommen von R. Man fragt sich ob SUVs mehr verbrauchen als Compact also SUV fährt kürzere Strecken mit einer Gallone daher less 
 
 # Teilen mit anderen Leute (Kollegen, Stakeholder...) -> Markdown dokument in files erstellen
