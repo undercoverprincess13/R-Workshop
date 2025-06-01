@@ -157,8 +157,29 @@ server <- function(input, output) {
     t_test
     
   })
+  # Lösung Aufgabe 5: 
+  # Testergebnisse
   
-
+    # | Kennwert                      | Ergebnis                          |
+    # |-------------------------------|-----------------------------------|
+    # | **t-Wert**                    | -4.188                            |
+    # | **Freiheitsgrade (df)**       | 94.577                            |
+    # | **p-Wert**                    | 3.161e-05 (**hoch signifikant**)  |
+    # | **Konfidenzintervall (95%)**  | [-∞, -0.6389]                     |
+    # | **Mittelwert Frauen**         | 4.32 Tassen/Tag                   |
+    # | **Mittelwert Männer**         | 5.38 Tassen/Tag                   |
+  
+  # Interpretation:
+  
+    # Der Unterschied im Kaffeekonsum ist statistisch signifikant. (p-Wert kleiner 5% und 5% ist unser Signifikanzniveau)
+    # -> Frauen trinken im Durchschnitt weniger Kaffee als Männer.
+    # Mit 95% Sicherheit liegt der wahre Mittelwertunterschied zwischen Frauen und Männern bei höchstens 0.639 Tassen pro Tag.
+    # 
+    # Das bedeutet:
+    # - Frauen trinken höchstens 0.639 Tassen weniger als Männer (mit 95% Sicherheit)
+    # - Der beobachtete Unterschied (–1.06 Tassen bei den Stichprobendaten) ist nicht durch Zufall erklärbar
+    # Die Nullhypothese wird abgelehnt und die Alternativhypothese angenommen
+  
 }
 
 # -------------------------------------------------------------------
