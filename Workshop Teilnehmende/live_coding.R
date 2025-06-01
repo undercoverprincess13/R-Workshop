@@ -1,4 +1,5 @@
 library(tidyverse)
+# Code ausführen mit Str+ Enter / Cmd Enter -> Führt die aktuelle Zeile oder den markierten Code in der Console aus
 
 # Datensätze anzeigen und auswählen (Datensätze die in den Bibliotheken enthalten sind)
 
@@ -55,7 +56,10 @@ library(tidyverse)
 
 
 # Gerichteter Zweistichproben-t-Test 
-
+# "Verbrauchen SUVs mehr Sprit in der Stadt als kompaktautos?"
+#  Variablen:
+#   cty = Stadtverbrauch (je mehr man pro Gallone fahren kann, desto sparsamer!)
+#   class = Fahrzeugklasse (z.B. "suv", "compact")
 
 # Teilen mit anderen Leute (Kollegen, Stakeholder...) -> Markdown-Dokument 
 # in files erstellen

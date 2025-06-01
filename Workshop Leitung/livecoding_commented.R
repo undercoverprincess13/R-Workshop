@@ -1,5 +1,8 @@
+# Library hinzufügen und ausführen
 library(tidyverse)
-# Dataset auswählen welche in den Bibs included sind 
+# Code ausführen mit Str+ Enter / Cmd Enter -> Führt die aktuelle Zeile oder den markierten Code in der Console aus
+
+# Datensätze anzeigen und auswählen (Datensätze die in den Bibliotheken enthalten sind)
 data()
 
 # Dataset anschauen
@@ -61,5 +64,24 @@ ggplot(mpg, aes(x = cty,
   geom_point() +
   scale_color_brewer(palette = "Dark2")
 # geom_smooth(method = "lm")  linear relationship durch einfaches hinzufügen einer Regression line
+
+
+# Gerichteter Zweistichproben-t-Test 
+# "Verbrauchen SUVs mehr Sprit in der Stadt als kompaktautos?"
+#  Variablen:
+#   cty = Stadtverbrauch (je mehr man pro Gallone fahren kann, desto sparsamer!)
+#   class = Fahrzeugklasse (z.B. "suv", "compact")
+
+t.test(
+  cty ~ class,
+  data = mpg %>% filter(class %in% c("suv", "compact")),
+  alternative = "less"
+)
+# cty(abhängige Variable, was gemessen wird -> Stadtverbrauch) ~ class(Gruppierungsvariable: 2 Gruppen "suv" und "compact")
+# -> R vergleicht den Durchschnitt von cty zwischen beiden Klassen 
+
+# data ist das dataframe was wir R mitgeben für den t-test, in dem Fall geben wir das gesamte mpg Dataframe mit aber gefiltert auf alle Zeilen die in Classe SUV oder COMPACT sind 
+
+# alternative = "less" Compact, SUV (Alphabet) Das rechte wie als Vergleich genommen von R. Man fragt sich ob SUVs mehr verbrauchen als Compact also SUV fährt kürzere Strecken mit einer Gallone daher less 
 
 # Teilen mit anderen Leute (Kollegen, Stakeholder...) -> Markdown dokument in files erstellen
