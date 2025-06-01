@@ -1,6 +1,6 @@
 library(tidyverse)
 
-# Datensätze anzeigen und auswählen (Datensätze die in den Bibs included sind)
+# Datensätze anzeigen und auswählen (Datensätze die in den Bibliotheken enthalten sind)
 
 
 # Ausgewählten Datensatz anschauen
@@ -52,6 +52,9 @@ library(tidyverse)
 
 
 # Mittelwert und Median als Boxplot
+
+
+# Gerichteter Zweistichproben-t-Test 
 
 
 # Teilen mit anderen Leute (Kollegen, Stakeholder...) -> Markdown-Dokument 
