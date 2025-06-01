@@ -49,28 +49,60 @@ ggplot(mpg, aes(x = cty,
 
 **Fragestellung:**  
 *Verbrauchen SUVs mehr Sprit in der Stadt als Kompaktwagen?*
-
+- Wir vergleichen den Stadtverbrauch (`cty`, miles per gallon) zwischen Fahrzeugklassen (`class`). Je höher der Wert, desto sparsam das Fahrzeug.
 ### Variablen:
 - `cty` = Stadtverbrauch (je mehr Meilen pro Gallone, desto sparsamer).
 - `class` = Fahrzeugklasse (`"compact"`, `"suv"`)
+### Hypothesen:
+- H₀ (Nullhypothese): Kompaktwagen sind nicht sparsamer als SUVs → `compact ≤ suv`
+- H₁ (Alternativhypothese): Kompaktwagen sind sparsamer → `compact > suv`
 
 ```{r}
 # Gerichteter t-Test
 t.test(
   cty ~ class,
   data = mpg %>% filter(class %in% c("suv", "compact")),
-  alternative = "less"
+  alternative = "greater"
 )
 ```
 
-### Erklärung:
+### Erklärung Code:
 
 - `t.test()` vergleicht Durchschnittswerte zwischen zwei Gruppen.
 - `cty ~ class` bedeutet: "Vergleiche Stadtverbrauch (cty) nach Fahrzeugklasse (class)"
 - `data` = ... übergibt das gefilterte mpg-Dataframe (nur "suv" und "compact").
 - `alternative` = "greater" prüft: Ist cty (Wie weit kommt man mit einer Galleone) bei Compact größer als bei SUV ? -> Dann wäre der Verbrauch von SUVs höher!
-- R vergleicht alphabetisch: "compact" (links), "suv" (rechts) → prüft „Linke (erste) Gruppe < rechte (zweite) Gruppe“
+- R vergleicht alphabetisch: "compact" (links), "suv" (rechts) → prüft „Linke (erste) Gruppe > rechte (zweite) Gruppe“
   → Das bedeutet: SUVs verbrauchen **mehr**, da sie **weniger** Meilen pro Gallone schaffen.
+  
+### Erklärung Ergebniss
+- 1. t-Wert: 11.393
+  -   Das ist der Teststatistik-Wert des t-Tests.
+  -   Er zeigt, wie stark sich die Mittelwerte der beiden Gruppen (Kompakt vs. SUV) voneinander unterscheiden, relativ zur Streuung der Daten.
+  -   Je größer der Betrag des t-Werts, desto größer der Unterschied.
+  -   Ein Wert von 11.393 ist sehr groß → Es gibt einen klaren Unterschied zwischen den Gruppen.
+- 2. df (Freiheitsgrade): 79.558
+  - Freiheitsgrade (degrees of freedom) bestimmen die Form der t-Verteilung.
+  - Hier: Der Wert ist nicht ganzzahlig, weil der Welch-t-Test verwendet wurde (erlaubt ungleiche Varianz).
+  - R berechnet diesen Wert automatisch und nutzt ihn, um den korrekten p-Wert zu berechnen.
+- 3. p-Wert: < 2.2e-16
+  - Der p-Wert gibt an: Wie wahrscheinlich wäre es, diesen Unterschied zu sehen, wenn es in Wirklichkeit keinen gibt?
+  - Hier ist der p-Wert extrem klein: kleiner als 0.00000000000000022.
+    - ➤ Sehr hoch signifikant!
+  - → Du kannst mit extrem hoher Sicherheit sagen, dass ein echter Unterschied zwischen den Gruppen besteht.
+  - Interpretation: Der Unterschied ist nicht durch Zufall erklärbar.
+- 4. 95%-Konfidenzintervall: [5.66, ∞)
+  - Das Konfidenzintervall sagt dir:
+  - „Mit 95% Sicherheit liegt der wahre Mittelwertunterschied mindestens bei 5.66 mpg.“
+  - Da das Intervall ausschließlich positiv ist (kein 0 enthalten), bestätigt es den signifikanten Unterschied.
+-  5. Mittelwerte:
+  - Gruppe	Mittelwert (cty)
+  - Kompaktwagen	20.13 mpg
+  - SUVs	13.50 mpg
+  - Kompaktwagen fahren im Schnitt 6.63 Meilen weiter pro Gallone.
+  - Das ist ein sehr relevanter praktischer Unterschied, nicht nur statistisch signifikant.
+
+🟢 Interpretation: Kompaktwagen verbrauchen mindestens 5.66 mpg weniger Sprit als SUVs.
 
 # Teilen mit anderen
 
