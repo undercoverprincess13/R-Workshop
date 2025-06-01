@@ -86,11 +86,12 @@ ggplot(mpg, aes(x = cty,
 t.test(
   cty ~ class,
   data = mpg %>% filter(class %in% c("suv", "compact")),
-  alternative = "less"
+  alternative = "greater"
 )
-# cty(abhängige Variable, was gemessen wird -> Stadtverbrauch) ~ class(Gruppierungsvariable: 2 Gruppen "suv" und "compact")
-# -> R vergleicht den Durchschnitt von cty zwischen beiden Klassen 
-# data ist das dataframe was wir R mitgeben für den t-test, in dem Fall geben wir das gesamte mpg Dataframe mit aber gefiltert auf alle Zeilen die in Classe SUV oder COMPACT sind 
-# alternative = "less" Compact, SUV (Alphabet) Das rechte wie als Vergleich genommen von R. Man fragt sich ob SUVs mehr verbrauchen als Compact also SUV fährt kürzere Strecken mit einer Gallone daher less 
+# t.test() vergleicht Durchschnittswerte zwischen zwei Gruppen.
+# cty ~ class bedeutet: "Vergleiche Stadtverbrauch (cty) nach Fahrzeugklasse (class)"
+# data = ... übergibt das gefilterte mpg-Dataframe (nur "suv" und "compact").
+# alternative = "greater" prüft: Ist cty (Wie weit kommt man mit einer Galleone) bei Compact größer als bei SUV ? -> Dann wäre der Verbrauch von SUVs höher!
+# R vergleicht alphabetisch: "compact" (links), "suv" (rechts) → prüft „Linke (erste) Gruppe < rechte (zweite) Gruppe“
 
 # Teilen mit anderen Leute (Kollegen, Stakeholder...) -> Markdown dokument in files erstellen

@@ -84,9 +84,13 @@ variablen_name <- Scooby$Spaltenname
 ## 🧮 Mittelwert, Median und Standardabweichung berechnen 
 ```r
 mean(Scooby$Spaltenname, na.rm = TRUE)
+median(Scooby$Spaltenname, na.rm = TRUE)
+sd(Scooby$Spaltenname, na.rm = TRUE)
 ```
-- `mean()` berechnet den Mittelwert.
-- `na.rm = TRUE` ignoriert fehlende Werte (`NA`), die sonst Fehler verursachen können.
+- `mean()` berechnet den Mittelwert
+- `median()` berechnet den Median
+- `sd()` berechnet die Standardabweichung
+- `na.rm = TRUE` ignoriert fehlende Werte (`NA`), die sonst Fehler verursachen können
 
 ## ❓️Hilfe & Beispieldaten
 
@@ -176,6 +180,26 @@ ggplot(mpg, aes(x = cty, y = hwy, color = class)) +
 - `aes()` definiert Achsen und Farben.
 - `geom_*()` bestimmt die Darstellungsform (z.B. Punkte, Histogramm).
 - `+` verknüpft Ebenen im Plot.
+
+## 🧮 Gerichteter Zweistichproben-t-Test mit t.test()
+
+"Verbrauchen SUVs mehr Sprit in der Stadt als kompaktautos?"
+Variablen:
+cty = Stadtverbrauch (je mehr man pro Gallone fahren kann, desto sparsamer!)
+class = Fahrzeugklasse (z.B. "compact", "suv")
+```r
+t.test(
+  cty ~ class,
+  data = mpg %>% filter(class %in% c("compact", "suv")),
+  alternative = "greater"
+)
+```
+- t.test() vergleicht Durchschnittswerte zwischen zwei Gruppen.
+- cty ~ class bedeutet: "Vergleiche Stadtverbrauch (cty) nach Fahrzeugklasse (class)"
+- data = ... übergibt das gefilterte mpg-Dataframe (nur "suv" und "compact").
+- alternative = "greater" prüft: Ist cty (Wie weit kommt man mit einer Galleone) bei Compact größer als bei SUV ? -> Dann wäre der Verbrauch von SUVs höher!
+- R vergleicht alphabetisch: "compact" (links), "suv" (rechts) → prüft „Linke (erste) Gruppe > rechte (zweite) Gruppe“
+
 
 # 📝 R Markdown
 

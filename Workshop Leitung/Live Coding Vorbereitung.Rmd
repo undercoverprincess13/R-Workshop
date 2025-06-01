@@ -2,5 +2,77 @@
 title: "Live Coding Vorbereitung"
 output: html_document
 ---
+```{r}
+library(ggplot2)
+library(tidyverse)
+```
+# Data Visualization mit ggplot2 (Grammar of Graphics)
 
-![Alternativtext](bildname.png){width=50%}
+## Grundlogik
+
+- `aes()` = aesthetics: Definiert, welche Variablen wie dargestellt werden sollen.
+- `geom_` = Geometrie des Plots (z.B. Punkte, Balken, Linien).
+- Plots können **gelayert** werden, d.h. mehrere Geome übereinandergelegt.
+
+```{r}
+# Histogramm
+ggplot(mpg, aes(x = cty)) + 
+  geom_histogram() +
+  labs(x = "City mileage")
+```
+
+```{r}
+# Histogramm + Häufigkeitslinie (gelayert)
+ggplot(mpg, aes(x = cty)) + 
+  geom_histogram() +
+  geom_freqpoly() +
+  labs(x = "City mileage")
+```
+
+```{r}
+# Scatter Plot mit Farb-Codierung nach Fahrzeugklasse
+ggplot(mpg, aes(x = cty,
+                y = hwy,
+                color = class)) + 
+  geom_point() +
+  scale_color_brewer(palette = "Dark2")
+```
+
+```{r}
+# Optional: Regression hinzufügen (auskommentiert)
+# ggplot(mpg, aes(x = cty, y = hwy)) +
+#   geom_point() +
+#   geom_smooth(method = "lm")
+```
+
+# Gerichteter Zweistichproben-t-Test
+
+**Fragestellung:**  
+*Verbrauchen SUVs mehr Sprit in der Stadt als Kompaktwagen?*
+
+### Variablen:
+- `cty` = Stadtverbrauch (je mehr Meilen pro Gallone, desto sparsamer).
+- `class` = Fahrzeugklasse (`"compact"`, `"suv"`)
+
+```{r}
+# Gerichteter t-Test
+t.test(
+  cty ~ class,
+  data = mpg %>% filter(class %in% c("suv", "compact")),
+  alternative = "less"
+)
+```
+
+### Erklärung:
+
+- `t.test()` vergleicht Durchschnittswerte zwischen zwei Gruppen.
+- `cty ~ class` bedeutet: "Vergleiche Stadtverbrauch (cty) nach Fahrzeugklasse (class)"
+- `data` = ... übergibt das gefilterte mpg-Dataframe (nur "suv" und "compact").
+- `alternative` = "greater" prüft: Ist cty (Wie weit kommt man mit einer Galleone) bei Compact größer als bei SUV ? -> Dann wäre der Verbrauch von SUVs höher!
+- R vergleicht alphabetisch: "compact" (links), "suv" (rechts) → prüft „Linke (erste) Gruppe < rechte (zweite) Gruppe“
+  → Das bedeutet: SUVs verbrauchen **mehr**, da sie **weniger** Meilen pro Gallone schaffen.
+
+# Teilen mit anderen
+
+- Dieses RMarkdown-Dokument kann als **HTML-Datei exportiert** und mit Kolleg:innen oder Stakeholdern geteilt werden.
+- Vorteil: Reproduzierbare Analyse mit eingebettetem Code, Kommentaren und Ergebnissen.

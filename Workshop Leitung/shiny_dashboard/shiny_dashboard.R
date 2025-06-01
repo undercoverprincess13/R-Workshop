@@ -42,7 +42,8 @@ server <- function(input, output) {
   # Histogramm für den Kaffee
   # ------------------------- 
   output$hist_kaffee <- renderPlot({
-    ggplot(gefilterte_daten(), aes(x = Kaffeetassen_pro_Tag)) +
+    df <- gefilterte_daten()
+    ggplot(df, aes(x = Kaffeetassen_pro_Tag)) +
       geom_histogram(binwidth = 1, fill = "#1f77b4", color = "white") +
       labs(
         title = "Verteilung: Tassen Kaffee pro Tag",
@@ -53,7 +54,7 @@ server <- function(input, output) {
   })
   
   # -------------------------
-  # Mittelwert und Median
+  # Mittelwert, Median, Standardabweichung
   # ------------------------- 
   output$stat_summary <- renderPrint({
     df <- gefilterte_daten()
