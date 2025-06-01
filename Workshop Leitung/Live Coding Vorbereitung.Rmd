@@ -1,50 +1,114 @@
 ---
-title: "Live Coding Vorbereitung"
-output:
-  html_document: default
+title: "Live Coding"
+output: html_document
 ---
-```{r}
-library(ggplot2)
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 ```
-# Data Visualization mit ggplot2 (Grammar of Graphics)
 
-## Grundlogik
+# Einführung
 
+In dieser Session lernen wir die Grundlagen von `ggplot2` einer Kernelemente von tidyverse() library , dem modernen Grafiksystem in R. Es basiert auf dem sogenannten "Grammar of Graphics"-Ansatz, bei dem man einen Plot als Kombination aus **Daten**, **Ästhetiken** und **Geometrien** versteht.
+# Der Aufbau eines Plots in `ggplot2`
 - `aes()` = aesthetics: Definiert, welche Variablen wie dargestellt werden sollen.
 - `geom_` = Geometrie des Plots (z.B. Punkte, Balken, Linien).
 - Plots können **gelayert** werden, d.h. mehrere Geome übereinandergelegt.
 
-```{r}
-# Histogramm
-ggplot(data = mpg, mapping = aes(x = cty))+
-  geom_histogram(binwidth = 1) +
-  labs(x = "city mileage per gallon")
+---
 
+
+
+## Schritt 1: Datensatz wählen und ggplot starten
+- man hat im Gegensatz zu anderen Visualisierungen hier erstmal nur die ggplot Funktion egal welche Vosualisierung Lininendiagramm etc. wir machen
+- es wird geschaut welche Variablen hat man auf der x achse und y achse, welche farben wollen wir etc erst dann geben wir an welches Art von Diagramm wir nehmen wollen 
+
+Wir arbeiten mit dem `mpg`-Datensatz, der in `ggplot2` enthalten ist.
+
+```{r}
+glimpse(mpg)
 ```
 
+## Schritt 2: Einfache Histogramm-Darstellung
+
+Ein Histogramm der Stadtverbrauchswerte (`cty`).
+- Wir wollen die cty Spalte also die Galonen pro Meile auf der x Achse haben, wenn wir das ausführen kommt erstmal nicht viel weil ggplot nicht weiß welches Diagramm wir haben wollen 
+
 ```{r}
-# Histogramm + Häufigkeitslinie (gelayert)
-ggplot(mpg, aes(x = cty)) + 
+ggplot(mpg, aes(x = cty))
+  
+```
+
+Wir müssen angeben welche Art von Diagramm wir haben wollen, dafür nutzen wir `geom_` und wählen das Histogramm aus. 
+```{r}
+ggplot(mpg, aes(x = cty)) +
+  geom_histogram()
+  
+```
+- Wir können jetzt Labels hinzufügen und  Farben 
+- grammar of graphics ist geschichtet (llayerd) wir wollen erst den plot grob anzeigen, dann können wir extra informationen hinzugügen mit `labs()` 
+
+
+```{r}
+ggplot(mpg, aes(x = cty)) +
+  geom_histogram() +
+  labs(x = "City mileage")
+```
+
+## Schritt 3: Frequenzpolygon statt Histogramm
+Warum macht man das jetzt so geschichtet? 
+- wenn wir statt einem Histogramm ein frequency Polygon 
+- das Ergebnis zeigt das Diagramm vom Aufbau ähnlich ist der einzige unterschied ist der Diagramm Type aber unsere `labs()` x Achsen Beschriftung bleibt und auch der X-Wert -> Diagramm Typ ist sekundär 
+
+```{r}
+ggplot(mpg, aes(x = cty)) +
+  geom_freqpoly() +
+  labs(x = "City mileage")
+```
+
+## Schritt 4: Mehrere Geometrien kombinieren
+- Wir können die beiden sogar übereinander legen, das ist vielleicht hier nicht so ganz sinnvoll zeigt aber wie stark ggplot bei der Visualisierunng ist und wie leicht die Syntax durch das layern ist 
+```{r}
+ggplot(mpg, aes(x = cty)) +
   geom_histogram() +
   geom_freqpoly() +
   labs(x = "City mileage")
 ```
 
-```{r}
-# Scatter Plot mit Farb-Codierung nach Fahrzeugklasse
-ggplot(mpg, aes(x = cty,
-                y = hwy,
-                color = class)) + 
-  geom_point() +
-  scale_color_brewer(palette = "Dark2")
-```
+# Scatterplot mit Regressionslinie
+Lasst uns ein paar weitere Plots mit dem mpg Datensatz machen beispielsweise ein Scatterplot 
+Diesmal nehmen wir `cty` (`milage`) auf die X Achse und `hwy` (`highway milage`) auf die Y Achse 
 
 ```{r}
-# Optional: Regression hinzufügen (auskommentiert)
-# ggplot(mpg, aes(x = cty, y = hwy)) +
-#   geom_point() +
-#   geom_smooth(method = "lm")
+ggplot(mpg, aes(x = cty, y = hwy)) +
+  geom_point()
+```
+
+Wenn wir das sehen denkt man direkt an eine lineare Regression 
+die Regressionslinie können wir einfach mit `geom_smooth(method = lm)`
+```{r}
+ggplot(mpg, aes(x = cty, y = hwy)) +
+  geom_point() +
+  geom_smooth(method = "lm")
+```
+
+# Scatterplot nach Fahrzeugklasse einfärben
+- wir haben mit Lais ja schon die Fahrzeugklassen gruppiert (`mpg` Dataset zeigen und `class` Spalte zeigen)
+- wir können jetzt die verschiedenen classen mit Farben kodieren das können wir wie die Infos über X und Y Achse unter `aes`thetic machen weil dort alle Infos über die visualisierung angegeben werden. Weil das nichts mit den Achsen zu tun hat fügen wir eine extra aesthetic hinzu `color` und wir wollen die `class` einfärben 
+
+```{r}
+ggplot(mpg, aes(x = cty, y = hwy, color = class)) +
+  geom_point()
+```
+
+## Farben verbessern (z.B. farbenblindfreundlich)
+- Man kannt die Farben manuell bestimmen oder über Farbpalleten einer Funktion `scale_color_brewer`
+
+```{r}
+ggplot(mpg, aes(x = cty, y = hwy, color = class)) +
+  geom_point() +
+  scale_color_brewer(palette = "Dark2")
 ```
 
 # Gerichteter Zweistichproben-t-Test
@@ -106,7 +170,21 @@ t.test(
 
 🟢 Interpretation: Kompaktwagen verbrauchen mindestens 5.66 mpg weniger Sprit als SUVs.
 
-# Teilen mit anderen
 
-- Dieses RMarkdown-Dokument kann als **HTML-Datei exportiert** und mit Kolleg:innen oder Stakeholdern geteilt werden.
-- Vorteil: Reproduzierbare Analyse mit eingebettetem Code, Kommentaren und Ergebnissen.
+# Ergebnis dokumentieren mit R Markdown
+
+R Markdown erlaubt dir, **Code und Text zu kombinieren** und **automatisch** HTML-, PDF- oder Word-Berichte zu erstellen.
+
+## Vorteile
+
+- Kein Copy & Paste zwischen RStudio und Word
+- Alle Schritte sind reproduzierbar
+- Perfekt für Kommunikation mit Team oder Kunden
+
+# Fazit
+
+`ggplot2` bietet ein **mächtiges, flexibles und logisches** Framework zur Erstellung von Grafiken. Du beginnst mit den Daten und beschreibst dann:
+
+1. Welche Variablen du zeigen willst (`aes`)
+2. Wie du sie zeigen willst (`geom`)
+3. Wie du sie verbessern willst (Labels, Farben, Titel usw.)

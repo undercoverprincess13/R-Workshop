@@ -55,31 +55,51 @@ library(tidyverse)
 
 
 # Datenvisualisierung mit ggplot2 (grammar of graphics)
-# aes (aesthentics) - welche var sollen wie kommunizieren
-# geom_ + Type of plot -> Syntax zum plotten
+  # Der Aufbau eines Plots in `ggplot2`
+  # - `aes()` = aesthetics: Definiert, welche Variablen wie    dargestellt werden sollen.
+  # - `geom_` = Geometrie des Plots (z.B. Punkte, Balken, Linien).
+  # - Plots können **gelayert** werden, d.h. mehrere Geome übereinandergelegt.
+
+# Datensatz wählen und ggplot starten 
+
+# Histogramm
+
+
+# Anderer Diagramm Typ: Frequenzpolynom statt Histogramm 
 
 
 # Plots layern
 
 
-# Scatter plot
-
-# geom_smooth(method = "lm")  linear relationship durch einfaches hinzufügen 
-# einer Regressionsline
+# Scatterplot
 
 
-# Historgram erstellen
+# Scatterplot nach Fahrzeugklasse einfärben
+
+
+
+# Farbe aus Farbpalette wählen  
+
 
 
 # Mittelwert und Median als Boxplot
 
 
-# Gerichteter Zweistichproben-t-Test 
-# "Verbrauchen SUVs mehr Sprit in der Stadt als kompaktautos?"
-#  Variablen:
-#   cty = Stadtverbrauch (je mehr man pro Gallone fahren kann, desto sparsamer!)
-#   class = Fahrzeugklasse (z.B. "suv", "compact")
+# Gerichteter Zweistichproben-t-Test
+  # Fragestellung:  
+    # Verbrauchen SUVs mehr Sprit in der Stadt als Kompaktwagen?
+    # - Wir vergleichen den Stadtverbrauch (`cty`, miles per gallon) zwischen Fahrzeugklassen (`class`). 
+    # - Je höher der Wert, desto sparsam das Fahrzeug.
 
-# Teilen mit anderen Leute (Kollegen, Stakeholder...) -> Markdown-Dokument 
-# in files erstellen
+  # Variablen:
+    # - `cty` = Stadtverbrauch (je mehr Meilen pro Gallone, desto sparsamer).
+    # - `class` = Fahrzeugklasse (`"compact"`, `"suv"`)
+  
+  # Hypothesen:
+    # - H₀ (Nullhypothese): Kompaktwagen sind nicht sparsamer als SUVs → `compact ≤ suv`
+    # - H₁ (Alternativhypothese): Kompaktwagen sind sparsamer → `compact > suv`
+
+
+
+# Teilen mit anderen Personen (Kollegen, Stakeholder...) -> Markdown-Dokument in files erstellen
 

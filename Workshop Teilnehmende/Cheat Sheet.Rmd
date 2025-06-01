@@ -19,7 +19,7 @@ output: html_document
 x <- 5
 y = 10
 ```
-Weist Werte an Variablen zu. `<-` ist in R die bevorzugte Schreibweise (Alternative: `=`).
+- Weist Werte an Variablen zu. `<-` ist in R die bevorzugte Schreibweise (Alternative: `=`).
 
 ## 🔹 Vektoren erstellen
 
