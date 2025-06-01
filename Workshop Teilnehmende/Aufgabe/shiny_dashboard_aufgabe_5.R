@@ -148,7 +148,7 @@ server <- function(input, output) {
   # Trinken Männer wirklich mehr Kaffee als Frauen?
   # Führe einen t-test mit R durch und interpretiere die Ergebnisse um die Frage zu beantworten
   # TIPP Cheat Sheet 🧮 Gerichteter Zweistichproben-t-Test mit t.test()
-  # Achtet darauf das bei Geschlecht "Alle" ausgewählt ist und bei Alter alle Altersgruppen
+  # Achtet darauf das bei Geschlecht "Alle" und bei Alter alle Altersgruppen ausgewählt sind 
 
   output$t_test_ergebnis <- renderPrint({
     df <- gefilterte_daten()
