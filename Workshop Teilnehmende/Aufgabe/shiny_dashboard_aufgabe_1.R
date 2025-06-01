@@ -48,8 +48,7 @@ server <- function(input, output) {
     # und auf der X Achse die Kaffeetassen pro Tag (Kaffeetassen_pro_Tag) anzeigt und beschrifte es. 
     # TIPP: CheatSheet 📊 Visualisierung mit ggplot2 
     df <- gefilterte_daten()
-    #ggplot( # TODO , # TODO )) +
-    ggplot(df, aes(x = Kaffeetassen_pro_Tag)) +
+    ggplot( # TODO , # TODO )) +
       geom_histogram(binwidth = 1, fill = "#1f77b4", color = "white") +
       labs(
         title = " # TODO ",
