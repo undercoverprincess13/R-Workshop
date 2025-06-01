@@ -9,6 +9,10 @@ library(tidyverse)
 
 # Code ausführen mit Str+ Enter / Cmd Enter -> Führt die aktuelle Zeile oder den markierten Code in der Console aus
 
+# Console Scooby # TODO 
+
+
+
 # Datensätze anzeigen und auswählen (Datensätze die in den Bibliotheken enthalten sind)
 data()
 
