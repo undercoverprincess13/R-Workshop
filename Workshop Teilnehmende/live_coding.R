@@ -1,4 +1,15 @@
 # Alle Bibliotheken installieren 
+install.packages(c(
+  "shiny",
+  "bslib",
+  "readxl",
+  "ggplot2",
+  "dplyr",
+  "ggcorrplot",
+  "tidyverse"
+))
+
+# Bibliotheken laden
 library(shiny)
 library(bslib)
 library(readxl)
