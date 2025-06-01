@@ -38,11 +38,13 @@ server <- function(input, output) {
     return(df)
   })
   
-  -------------------------------------------------------------------
+# -------------------------------------------------------------------
   
-# Histogramm für den Kaffee
+# Histogramm für den Kaffee Lösung Aufgabe 1 
+  
   output$hist_kaffee <- renderPlot({
-    ggplot(gefilterte_daten(), aes(x = Kaffeetassen_pro_Tag)) +
+    df <- gefilterte_daten()
+    ggplot(df, aes(x = Kaffeetassen_pro_Tag)) +
       geom_histogram(binwidth = 1, fill = "#1f77b4", color = "white") +
       labs(
         title = "Verteilung: Tassen Kaffee pro Tag",
@@ -52,8 +54,10 @@ server <- function(input, output) {
       theme_minimal()
   })
   
+
  
-# Mittelwert und Median
+# Mittelwert, Median, Standardabweichung Lösung Aufgabe 2 
+   
 
   output$stat_summary <- renderPrint({
     df <- gefilterte_daten()
@@ -67,9 +71,22 @@ server <- function(input, output) {
     print(summary)
   })
   
-
-# Mittelwert und Median Boxplot
-
+# Mittelwert und Median Boxplot Lösung Aufgabe 2:
+  # Lösung Aufgabe 2: Interpretation des Boxplots:
+  # Was sagt der Boxplot aus? 
+  # Antwort: Ein Boxplot zeigt die Verteilung einer numerischen Variable. Dabei gibt er wichtige Lage- und Streuungsmaße wieder. 
+  # - Median (Zentralwert): Die mittlere Linie in der Box.
+  # - Box: Spannt sich vom 1. Quartil (Q1) bis zum 3. Quartil (Q3) und enthält die mittleren 50 % der Werte.
+  # - "Whiskers" (Antennen): Reichen üblicherweise bis zu 1,5-fache der interquartilen Spannweite (IQR). Werte außerhalb gelten als Ausreißer und werden als Punkte dargestellt
+  
+  # In welchen Fällen kann er gut eingesetzt werden?
+  # Antwort: 
+  # Ein Boxplot eignet sich besonders gut, wenn man:
+  # - Verteilungen visuell vergleichen will
+  # - Ausreißer identifizieren möchte
+  # - Symmetrie oder Schiefe der Verteilung beurteilen will
+  # - Vergleiche mehrerer Gruppen durchführen will
+  
   output$boxplot_mittelwerte <- renderPlot({
     df <- gefilterte_daten()
     ggplot(df, aes(x = "", y = Kaffeetassen_pro_Tag)) +
@@ -83,13 +100,20 @@ server <- function(input, output) {
       theme_minimal()
   })
   
+# Korrelationsmatrix Lösung Aufgabe 3 
+  # Interpretation (führe den Code aus und schau dir die KOrrelationsmatrix an): 
+  # Wie hängen die Variablen Alter, Lernzeit, Kaffetassen, Geschlecht, Prüfungsphase zusammen?  
+  # Antwort: 
+  # Kaffeekonsum und Lernzeit: r = 0.60 → starker positiver Zusammenhang -> Wer mehr lernt, trinkt auch tendenziell mehr Kaffee.
+  # Kaffeekonsum und Prüfungsphase: r = 0.44 → moderater positiver Zusammenhang -> In der Prüfungsphase wird mehr Kaffee konsumiert.
+  # Lernzeit und Prüfungsphase: r = 0.52 → moderater positiver Zusammenhang -> In der Prüfungsphase steigt auch die Lernzeit deutlich.
+  # Kaffeekonsum und Geschlecht: r = -0.43 → moderater negativer Zusammenhang ->  Ein Geschlecht (je nach Kodierung, z. B. weiblich = 0, männlich = 1) trinkt deutlich weniger Kaffee. (Hinweis: Die genaue Interpretation hängt von der Kodierung ab.)
+  # Lernzeit und Geschlecht: r = -0.25 → leichter negativer Zusammenhang ->  Ein Geschlecht lernt tendenziell etwas weniger.
+  # Alter und andere Variablen:
+  #  •	Mit Kaffeetassen: r = 0.29 → leichte positive Korrelation.
+  #  •	Mit Lernzeit: r = 0.15 → kaum Zusammenhang.
+  #  •	Mit Prüfungsphase: r = 0.21 → geringer Zusammenhang.
   
-  
-  
-
-# Korrelationsmatrix
-# Wie hängen die Variablen Alter, Lernzeit, Kaffetassen, Geschlecht, Prüfungsphase zusammen 
-
   output$cor_matrix <- renderPlot({
     df <- gefilterte_daten()
     
@@ -114,40 +138,28 @@ server <- function(input, output) {
                ggtheme = theme_minimal())
   })
   
-
-# Regression
-
-  
+  # Regression Aufgabe 4
+  # TODO Erstelle ein Diagramm mit ggplot auf dem die X Achse die Lernzeit pro Tag in Stunden (Lernzeit_pro_Tag_in_Stunden) und die Y Achse die Kaffeetassen pro Tag (Kaffeetassen_pro_Tag) sind
+  # Beschrifte das Diagramm mit Titel, X Achse und Y Achse 
   output$regression_plot <- renderPlot({
     df <- gefilterte_daten()
     
-    ggplot(df, aes(x = Lernzeit_pro_Tag_in_Stunden, y = Kaffeetassen_pro_Tag)) +
+    ggplot(df, aes(x = #TODO, #TODO)) +
       geom_point(color = "#1f77b4") +
       geom_smooth(method = "lm", se = TRUE, color = "darkred") +
       labs(
-        title = "Regression: Lernzeit vs. Kaffeekonsum",
-        x = "Lernzeit (Stunden pro Tag)",
-        y = "Tassen Kaffee pro Tag"
+        title = "# TODO",
+        x = "# TODO",
+        y = "# TODO"
       ) +
       theme_minimal()
   })
   
-# Hypothesentest
-# Trinken Männer wirklich mehr Kaffee als Frauen?
-
-  output$t_test_ergebnis <- renderPrint({
-    df <- gefilterte_daten()
-    t_test <- t.test(Kaffeetassen_pro_Tag ~ Geschlecht, data = df, alternative = "greater")
-    # R vergleicht Mittelwerte alphabetisch (Frau, Mann) danach geht es von rechts nach linkts in Bezus auf Y~X-> X = Mann > Y = Frau 
-    # alternative = "greater" bedeutet: „Zweite Gruppe > Erste Gruppe“
-    t_test
-    
-    
-  })
+  
 
 }
 
--------------------------------------------------------------------
+# -------------------------------------------------------------------
   
 
 # -------------------
@@ -201,28 +213,19 @@ div(
   layout_columns(
     col_widths = c(6, 6),
     card(
-      card_header("Korrelation Kaffeekonsum"),
-      p("Diese Korrelationsmatrix zeigt Zusammenhänge zwischen Alter, Kaffee- und Lernverhalten.(Gefiltert auf Alter und Geschlecht per Sidebar)"),
+      card_header("Korrelation Kaffeekonsum während und außerhalb der Prüfungsphase"),
+      p("Diese Korrelationsmatrix zeigt Zusammenhänge zwischen Alter, Kaffee- und Lernverhalten."),
       plotOutput("cor_matrix", height = "400px")
-  ),
+    ),
     
     card(
       card_header("Regression"),
-      p("Zusammenhang zwischen Lernzeit und Kaffeekonsum. (Gefiltert auf Alter und Geschlecht per Sidebar)"),
+      p("Zusammenhang zwischen Lernzeit und Kaffeekonsum"),
       plotOutput("regression_plot", height = "400px")
     )
-  ),
-  layout_columns(
-    col_widths = c(12),
-
-    card(
-      card_header("Trinken Frauen mehr Kaffee als Männer bezogen auf Lernzeit (Hypothesentest / T-Test)"),
-      p("Der T-Test prüft, ob es einen signifikanten Unterschied im Kaffeekonsum zwischen Männern und Frauen gibt. (Gefiltert auf Alter Sidebar)"),
-      verbatimTextOutput("t_test_ergebnis")
-      )
+  )
     )
   )
-)
 
 
 # ----------------
