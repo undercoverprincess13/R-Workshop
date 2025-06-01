@@ -22,15 +22,6 @@ namen <- c("Anna", "Ben", "Eva")
 ```
 `c()` steht für „combine“ und erstellt Vektoren – geordnete Sammlungen gleichartiger Elemente (Zahlen, Zeichenketten etc.).
 
-## 🔹 Sequenzen und Wiederholungen
-
-```r
-1:10
-seq(0, 1, by = 0.1)
-rep(1:3, times = 2)
-```
-`1:10` erzeugt eine einfache Folge. `seq()` ist flexibler. `rep()` wiederholt Elemente.
-
 ## 🔹 Zugriff auf Vektor-Elemente
 
 ```r
@@ -45,16 +36,19 @@ Zugriff über Index in eckigen Klammern – beginnt in R bei 1 (nicht bei 0 wie 
 a + b; a - b; a * b; a / b; a ^ 2
 x == y; x != y; x > y; x < y; x & y; x | y; !x
 ```
-Grundoperationen und logische Vergleiche – wichtig z. B. für Filterungen und Bedingungen.
+Grundoperationen und logische Vergleiche 
+wichtig z. B. für Filterungen und Bedingungen
 
 ## 🔹 Funktionen auf Vektoren anwenden
 
 ```r
-mean(zahlen)
+mean(zahlen)   
 sum(zahlen)
 length(zahlen)
 ```
 R bietet viele eingebaute Funktionen zur Analyse von Vektoren.
+mean = funktion 
+zahlen = Daten in diesem Fall der Vektor könnte auch eine Spalte eines Datenframes sein 
 
 # 🎯 Grundlagen aus dem Live Coding
 
@@ -76,11 +70,11 @@ Scooby <- read_excel("Pfad/zur/Datei.xlsx")
 view(Scooby)
 ```
 - `read_excel()` lädt eine Excel-Datei als DataFrame.
-- `"Pfad/zur/Datei.xlsx"` muss durch den tatsächlichen Dateipfad ersetzt werden (Tipp: Datei ins Files-Fenster ziehen).
+- `"Pfad/zur/Datei.xlsx"` muss durch den tatsächlichen Dateipfad ersetzt werden.
 - `Scooby` ist der selbstgewählte Name für den Datensatz.
 - `view(Scooby)` öffnet den Datensatz im Tabelleneditor von RStudio.
 
-## 🔎 Erste Analysen
+## 🔎 Erste Analysen | Auf Spalte im Dataframe zugreifen
 
 ```r
 mean(Scooby$run_time)
@@ -98,7 +92,15 @@ data()
 ?mean
 ```
 - `data()` zeigt eingebaute Beispiel-Datensätze.
-- `?funktion` öffnet die Hilfe zur Funktion – sehr nützlich bei Unsicherheiten.
+- `?funktion` öffnet die Hilfe zur Funktion sehr nützlich bei Unsicherheiten.
+
+## 👀 Übersicht mit str()
+
+```r
+glimpse(mpg)
+```
+`str()` zeigt die interne Struktur eines Objekts, z.B. eines Data Frames. Es gibt Spaltennamen, Datentypen und Vorschauwerte aus untereinander und im kompakten Format. 
+
 
 ## 👀 Übersicht mit glimpse()
 
@@ -113,17 +115,9 @@ glimpse(mpg)
 mpg_efficient <- filter(mpg, cty >= 20)
 mpg_ford <- filter(mpg, manufacturer == "ford")
 ```
-- `filter()` wählt nur Zeilen, die eine Bedingung erfüllen.
+- `filter()` wählt nur Zeilen, die eine Bedingung erfüllen. Aus dem Datensatz mpg soll City größer oder gleich 20 sein. Aus dem Datensatz mpg soll manufacturer dem String Ford entsprechen. 
 - `==` vergleicht Werte; `=` würde hier nicht funktionieren.
-- Ergebnis wird in neuen Objekten gespeichert.
-
-## ➕ Neue Spalten mit mutate()
-
-```r
-mpg_metric <- mutate(mpg, cty_metric = 0.425144 * cty)
-```
-- `mutate()` erzeugt neue Spalten oder verändert bestehende.
-- Hier: Umrechnung von Meilen pro Gallone in Liter pro 100km.
+- Ergebnis wird in neuen Objekten gespeichert (mpg_efficient und mpg_ ford)
 
 ## 🔗 Pipes verwenden
 
@@ -131,7 +125,27 @@ mpg_metric <- mutate(mpg, cty_metric = 0.425144 * cty)
 mpg_metric <- mpg %>% mutate(cty_metric = 0.425144 * cty)
 ```
 - `%>%` ist die Pipe: leitet das Ergebnis von links an die Funktion rechts weiter.
-- Macht Code lesbarer („nimm mpg und dann…“).
+- Macht Code lesbarer („nimm das dataframe mpg (links) und gebe es an die Funktion rechts (mutate) weiter und dann wird mutate mit dem Dataframe mpg ausgeführt).
+
+## ➕  Spalte verändern mit mutate()
+```r
+mpg_filtered <- mpg %>%
+  rename(city_mpg = cty) %>%
+  filter(city_mpg > 20)
+
+```
+- rename() benennt die Spalte cty um in city_mpg.
+- filter() behält nur Zeilen, bei denen city_mpg größer als 20 ist.
+- Das Ergebnis wird in mpg_filtered gespeichert.
+
+## ➕ Neue Spalten mit mutate()
+
+```r
+mpg_metric <- mutate(mpg, cty_metric = 0.425144 * cty)
+```
+- `mutate()` erzeugt neue Spalten oder verändert bestehende.
+- Hier: Umrechnung von Meilen pro Gallone in Liter pro 100km in die neue Spalte mpg_metric gespeichert
+
 
 ## 🧮 Gruppieren & Zusammenfassen
 
@@ -156,9 +170,9 @@ ggplot(mpg, aes(x = cty, y = hwy, color = class)) +
 ```
 - `ggplot2` ist R’s Hauptpaket für Visualisierung.
 - `aes()` definiert Achsen und Farben.
-- `geom_*()` bestimmt die Darstellungsform (z. B. Punkte, Histogramm).
+- `geom_*()` bestimmt die Darstellungsform (z.B. Punkte, Histogramm).
 - `+` verknüpft Ebenen im Plot.
 
 # 📝 R Markdown
 
-R Markdown vereint Text, Code und Ausgaben in einem dynamischen Dokument. Du kannst es als HTML, PDF oder Word-Bericht rendern. Ideal für dokumentierte Analysen und Präsentationen.
+R Markdown vereint Text, Code und Ausgaben in einem dynamischen Dokument. Dieses Dokument selbst ist ein R Markdown (.Rmd) Dokument. Du kannst es als HTML, PDF oder Word-Bericht rendern. Ideal für dokumentierte Analysen und Präsentationen.
