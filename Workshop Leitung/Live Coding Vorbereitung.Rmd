@@ -1,6 +1,7 @@
 ---
 title: "Live Coding Vorbereitung"
-output: html_document
+output:
+  html_document: default
 ---
 ```{r}
 library(ggplot2)
@@ -16,9 +17,10 @@ library(tidyverse)
 
 ```{r}
 # Histogramm
-ggplot(mpg, aes(x = cty)) + 
-  geom_histogram() +
-  labs(x = "City mileage")
+ggplot(data = mpg, mapping = aes(x = cty))+
+  geom_histogram(binwidth = 1) +
+  labs(x = "city mileage per gallon")
+
 ```
 
 ```{r}
