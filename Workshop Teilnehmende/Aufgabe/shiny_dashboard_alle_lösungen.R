@@ -152,7 +152,7 @@ server <- function(input, output) {
   output$t_test_ergebnis <- renderPrint({
     df <- gefilterte_daten()
     t_test <- t.test(Kaffeetassen_pro_Tag ~ Geschlecht, data = df, alternative = "less")
-    # R vergleicht Mittelwerte alphabetisch (Frau, Mann)  Y~X-> Y = Frau X = Mann 
+    # R vergleicht Mittelwerte alphabetisch (Frau, Mann)  Y~X-> Y = Frau < X = Mann 
     # alternative = "less" bedeutet: „Erste Gruppe < Zweite Gruppe“
     t_test
     

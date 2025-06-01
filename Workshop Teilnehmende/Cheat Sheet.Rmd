@@ -163,7 +163,7 @@ mpg %>%
   summarise(mean_cty = mean(cty), median_cty = median(cty))
 ```
 - `group_by()` gruppiert Daten nach Kategorien.
-- `summarise()` berechnet Kennzahlen je Gruppe (z. B. Durchschnitt).
+- `summarise()` berechnet Kennzahlen je Gruppe (z.B. Durchschnitt).
 
 ## 📊 Visualisierung mit ggplot2
 
