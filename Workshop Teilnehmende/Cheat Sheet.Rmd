@@ -4,6 +4,13 @@ title: "R Cheatsheet: Grundlagen mit Erklärungen"
 output: html_document
 ---
 
+## ⌨️ R Studio Shortcuts 
+### Codezeile oder markierten Code ausführen 
+- Code ausführen mit Str + Enter / Cmd + Enter
+
+### Pipe Command %>% Shortcut 
+- Str + Shift + M / Cmd + Shift + M 
+
 # ✍ R-Notation – Grundlagen
 
 ## 🔹 Zuweisung von Variablen
@@ -37,7 +44,7 @@ a + b; a - b; a * b; a / b; a ^ 2
 x == y; x != y; x > y; x < y; x & y; x | y; !x
 ```
 Grundoperationen und logische Vergleiche 
-wichtig z. B. für Filterungen und Bedingungen
+wichtig z.B. für Filterungen und Bedingungen
 
 ## 🔹 Funktionen auf Vektoren anwenden
 
