@@ -191,7 +191,7 @@ t.test(
 - 4. 95%-Konfidenzintervall: [5.66, ∞)
   - Das Konfidenzintervall sagt dir:
   - „Mit 95% Sicherheit liegt der wahre Mittelwertunterschied mindestens bei 5.66 mpg.“
-  - Da das Intervall ausschließlich positiv ist (kein 0 enthalten), bestätigt es den signifikanten Unterschied.
+  - Da das Intervall ausschließlich positiv ist (kein 0 enthalten, Mittelwert von H0), bestätigt es den signifikanten Unterschied.
 -  5. Mittelwerte:
   - Gruppe	Mittelwert (cty)
   - Kompaktwagen	20.13 mpg (deskriptive Werte )
