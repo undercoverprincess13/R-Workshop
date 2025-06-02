@@ -104,11 +104,11 @@ server <- function(input, output) {
   # Interpretation (führe den Code aus und schau dir die KOrrelationsmatrix an): 
   # Wie hängen die Variablen Alter, Lernzeit, Kaffetassen, Geschlecht, Prüfungsphase zusammen?  
   # Antwort: 
-  # Kaffeekonsum und Lernzeit: r = 0.60 → starker positiver Zusammenhang -> Wer mehr lernt, trinkt auch tendenziell mehr Kaffee.
-  # Kaffeekonsum und Prüfungsphase: r = 0.44 → moderater positiver Zusammenhang -> In der Prüfungsphase wird mehr Kaffee konsumiert.
-  # Lernzeit und Prüfungsphase: r = 0.52 → moderater positiver Zusammenhang -> In der Prüfungsphase steigt auch die Lernzeit deutlich.
-  # Kaffeekonsum und Geschlecht: r = -0.43 → moderater negativer Zusammenhang ->  Ein Geschlecht (je nach Kodierung, z. B. weiblich = 0, männlich = 1) trinkt deutlich weniger Kaffee. (Hinweis: Die genaue Interpretation hängt von der Kodierung ab.)
-  # Lernzeit und Geschlecht: r = -0.25 → leichter negativer Zusammenhang ->  Ein Geschlecht lernt tendenziell etwas weniger.
+  # Kaffeekonsum und Lernzeit: r = 0.60 → Es besteht ein starker positiver Zusammenhang. Personen, die mehr lernen, trinken tendenziell auch mehr Kaffee.
+  # Kaffeekonsum und Prüfungsphase: r = 0.44 → Moderater positiver Zusammenhang. In der Prüfungsphase wird tendenziell mehr Kaffee konsumiert 
+  # Lernzeit und Prüfungsphase: r = 0.52 → Moderater positiver Zusammenhang. In der Prüfungsphase wird im Durchschnitt mehr gelernt.
+  # Kaffeekonsum und Geschlecht: r = -0.43 → Moderater negativer Zusammenhang.Frauen trinken im Durchschnitt mehr Kaffee trinken als Männer.
+  # Lernzeit und Geschlecht: r = -0.25 → leichter negativer Zusammenhang ->  Frauen lernen im Mittel etwas mehr als Männer.
   # Alter und andere Variablen:
   #  •	Mit Kaffeetassen: r = 0.29 → leichte positive Korrelation.
   #  •	Mit Lernzeit: r = 0.15 → kaum Zusammenhang.

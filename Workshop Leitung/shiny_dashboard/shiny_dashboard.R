@@ -96,19 +96,25 @@ server <- function(input, output) {
     df <- gefilterte_daten()
     
     # Umkodierung Geschlecht und Prüfungsphase in numerische Werte
+    # Wir machen aus kategorialen Variablen (Text) numerische Werte,
+    # damit sie in der Korrelationsberechnung berücksichtigt werden können.
+    # Geschlecht: Frau = 1, Mann = 0 / Prüfungsphase: Ja = 1, Nein = 0
     df$Geschlecht <- ifelse(df$Geschlecht == "Frau", 1, 0)
     df$Pruefungsphase <- ifelse(df$Pruefungsphase == "Ja", 1, 0)
     
-    # Nur numerische Spalten
+    # Wir behalten nur die numerischen Spalten, da die Funktion cor()
+    # nur mit numerischen Daten arbeiten kann.
     numeric_df <- df %>% select(where(is.numeric))
     
     # Korrelationsmatrix berechnen
+    # Wie stark hängen die numerischen Variablen miteinander zusammen?
+    # "complete.obs" bedeutet: Zeilen mit fehlenden Werten (NA) werden ignoriert.
     cor_matrix <- cor(numeric_df, use = "complete.obs")
     
-    # Darstellung mit ggcorrplot
+    # Darstellung / Die Matrix wird mit ggcorrplot als farbige Kachelgrafik dargestellt.
     ggcorrplot(cor_matrix,
                method = "square",
-               type = "upper",
+               type = "upper", #Nur die obere Hälfte der Matrix anzeigen (symmetrisch / "full" für komplett)
                lab = TRUE,
                lab_size = 3,
                colors = c("red", "white", "blue"),
@@ -123,9 +129,11 @@ server <- function(input, output) {
   output$regression_plot <- renderPlot({
     df <- gefilterte_daten()
     
+    # Erstelle ein Streudiagramm mit ggplot:
     ggplot(df, aes(x = Lernzeit_pro_Tag_in_Stunden, y = Kaffeetassen_pro_Tag)) +
-      geom_point(color = "#1f77b4") +
-      geom_smooth(method = "lm", se = TRUE, color = "darkred") +
+      geom_point(color = "#1f77b4") +                            # Zeichne die einzelnen Datenpunkte
+      geom_smooth(method = "lm", se = TRUE, color = "darkred") + # Füge eine Regressionslinie hinzu (lm = lineares Modell),
+                                                                 # mit Konfidenzintervall (se = TRUE)
       labs(
         title = "Regression: Lernzeit vs. Kaffeekonsum",
         x = "Lernzeit (Stunden pro Tag)",
